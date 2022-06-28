@@ -8,8 +8,8 @@
                 <input class="form-control" type="file" name="image">
                 <button class="btn btn-success" type="submit" name="submit">Upload</button>
             </form>
-            <a href="#" data-toggle="lightbox" data-title="sample 12 - black" data-gallery="gallery">
-            <img class="img-fluid img-thumbnail m-2" src="{{ asset('public/images/img_5terre.jpg') }}" alt="Cinque Terre"
+            <a href="{{ asset('public/images/img_5terre.jpg') }}" data-lightbox="photos">
+            <img id="myModal" class="img-fluid img-thumbnail m-2" src="{{ asset('public/images/img_5terre.jpg') }}" alt="Cinque Terre"
                 width="300" height="200">
             </a>
 
@@ -35,14 +35,4 @@
                 width="300" height="200">
         </div>
     </div>
-    <script type="text/javascript">
-        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-            event.preventDefault();
-            $(this).ekkoLightbox({
-                alwaysShowClose: true
-            });
-        });
-    </script>
-    <!-- Ekko Lightbox -->
-    <script src="{{ asset('public/plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script>
 @endsection

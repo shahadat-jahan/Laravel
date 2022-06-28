@@ -84,6 +84,8 @@ Route::get('/orders', 'OrderController@index')->name('orders.index');
 Route::post('/orders/limit', 'OrderController@limit')->name('orders.limit');
 Route::post('/orders/search', 'OrderController@search')->name('orders.search');
 Route::get('/orders/destroy/{id}', 'OrderController@destroy')->name('orders.destroy');
+Route::get('/orders/report', 'OrderController@report')->name('orders.report');
+Route::post('/orders/show-report', 'OrderController@showReport')->name('orders.showReport');
 
 //ProductPurchase route
 Route::get('/product-purchases', 'ProductPurchaseController@index')->name('productPurchases.index');
@@ -93,11 +95,6 @@ Route::get('/product-purchases/show/{id}', 'ProductPurchaseController@show')->na
 Route::get('/product-purchases/edit/{id}', 'ProductPurchaseController@edit')->name('productPurchases.edit');
 Route::post('/product-purchases/update', 'ProductPurchaseController@update')->name('productPurchases.update');
 Route::get('/product-purchases/destroy/{id}', 'ProductPurchaseController@destroy')->name('productPurchases.destroy');
-// Route::get('/product-purchases/destroy-product/{id}', 'ProductPurchaseController@destroyProduct')->name('productPurchases.destroyProduct');
 Route::post('/product-purchases/search', 'ProductPurchaseController@search')->name('productPurchases.search');
-// Route::post('/product-purchases/order-search', 'ProductPurchaseController@orderSearch')->name('productPurchases.orderSearch');
 Route::post('/product-purchases/limit', 'ProductPurchaseController@limit')->name('productPurchases.limit');
-// Route::post('/product-purchases/order-limit', 'ProductPurchaseController@orderLimit')->name('productPurchases.orderLimit');
 Route::post('/product-purchases/row', 'ProductPurchaseController@row')->name('productPurchases.row');
-// Route::get('/product-purchases/order', 'ProductPurchaseController@order')->name('productPurchases.order');
-// Route::get('/product-purchases/order-list', 'ProductPurchaseController@orderList')->name('productPurchases.orderList');

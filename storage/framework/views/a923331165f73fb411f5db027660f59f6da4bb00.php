@@ -11,6 +11,8 @@
     <title><?php echo e(config('app.name', 'Swapnoloke')); ?></title>
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
     <link href="<?php echo e(asset('public/css/app.css')); ?>" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -52,5 +54,6 @@
     <!-- Filterizr-->
     <script src="<?php echo e(asset('public/plugins/filterizr/jquery.filterizr.min.js')); ?>"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
 </head>
 <?php /**PATH E:\Xampp\htdocs\shahadat_laravel\resources\views/layouts/header.blade.php ENDPATH**/ ?>

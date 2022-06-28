@@ -24,7 +24,9 @@
                  <li class="nav-item">
                      <a class="nav-link" href="{{ route('thanas.index') }}">{{ __('Thanas') }}</a>
                  </li>
-
+                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('orders.report') }}">{{ __('Report') }}</a>
+                </li>
              </ul>
          @endif
 

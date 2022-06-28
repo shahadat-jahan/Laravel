@@ -8,7 +8,7 @@
                 <input class="form-control" type="file" name="image">
                 <button class="btn btn-success" type="submit" name="submit">Upload</button>
             </form>
-            <a href="#" data-toggle="lightbox" data-title="sample 12 - black" data-gallery="gallery">
+            <a href="<?php echo e(asset('public/images/img_5terre.jpg')); ?>" data-lightbox="photos">
             <img class="img-fluid img-thumbnail m-2" src="<?php echo e(asset('public/images/img_5terre.jpg')); ?>" alt="Cinque Terre"
                 width="300" height="200">
             </a>
@@ -35,16 +35,6 @@
                 width="300" height="200">
         </div>
     </div>
-    <script type="text/javascript">
-        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-            event.preventDefault();
-            $(this).ekkoLightbox({
-                alwaysShowClose: true
-            });
-        });
-    </script>
-    <!-- Ekko Lightbox -->
-    <script src="<?php echo e(asset('public/plugins/ekko-lightbox/ekko-lightbox.min.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\Xampp\htdocs\shahadat_laravel\resources\views/gallery.blade.php ENDPATH**/ ?>

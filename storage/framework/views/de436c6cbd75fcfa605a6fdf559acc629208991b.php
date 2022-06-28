@@ -24,7 +24,9 @@
                  <li class="nav-item">
                      <a class="nav-link" href="<?php echo e(route('thanas.index')); ?>"><?php echo e(__('Thanas')); ?></a>
                  </li>
-
+                 <li class="nav-item">
+                    <a class="nav-link" href="<?php echo e(route('orders.report')); ?>"><?php echo e(__('Report')); ?></a>
+                </li>
              </ul>
          <?php endif; ?>
 
