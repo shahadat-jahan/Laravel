@@ -7,8 +7,8 @@ use App\Customer;
 use App\ProductPurchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use PDF;
 use Illuminate\Support\Facades\View;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -121,8 +121,8 @@ class OrderController extends Controller
                 }
             }
         }
-        View()->share(compact('customers', 'data', 'rowspanArr'));
-        if($request->download == 'pdf'){  
+        View::share(compact('customers', 'data', 'rowspanArr'));
+        if($request->has('download')){  
             $pdf = PDF::loadView('orders.include.reportPDF');  
             return $pdf->stream();  
         }
