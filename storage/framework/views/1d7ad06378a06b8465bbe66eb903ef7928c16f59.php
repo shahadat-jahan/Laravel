@@ -79,10 +79,8 @@
 			?>
                     <tr>
                         <td rowspan="<?php echo e(!empty($rowspanArr['div'][$divId]) ? $rowspanArr['div'][$divId] : 1); ?>">
-                            <a style="text-decoration: none; color: black" href="">
-                                <?php echo e(!empty($divInfo['division_name']) ? $divInfo['division_name'] : 0); ?>
+                            <?php echo e(!empty($divInfo['division_name']) ? $divInfo['division_name'] : 0); ?>
 
-                            </a>
                         </td>
                         <?php
 			    if (!empty($divInfo['district'])) {
@@ -92,13 +90,9 @@
 					?>
                     <tr>
                         <?php } ?>
+                        <td rowspan="<?php echo e(!empty($rowspanArr['dis'][$divId][$disId]) ? $rowspanArr['dis'][$divId][$disId] : 1); ?>">                        
+                            <?php echo e(!empty($disInfo['district_name']) ? $disInfo['district_name'] : 0); ?>
 
-                        <td
-                            rowspan="<?php echo e(!empty($rowspanArr['dis'][$divId][$disId]) ? $rowspanArr['dis'][$divId][$disId] : 1); ?>">
-                            <a style="text-decoration: none; color: black" href="">
-                                <?php echo e(!empty($disInfo['district_name']) ? $disInfo['district_name'] : 0); ?>
-
-                            </a>
                         </td>
                         <?php
 				    if (!empty($disInfo['thana'])) {
@@ -108,7 +102,6 @@
 						?>
                     <tr>
                         <?php } ?>
-
                         <td
                             rowspan="<?php echo e(!empty($rowspanArr['th'][$divId][$disId][$thId]) ? $rowspanArr['th'][$divId][$disId][$thId] : 1); ?>">
                             <?php echo e(!empty($thInfo['thana_name']) ? $thInfo['thana_name'] : 0); ?>
@@ -182,8 +175,8 @@
         </div>
     </div>
     <script type="text/javascript">
-     $(document).ready(function() {
-        $(document).on('click', '#newCustomer', function() {
+        $(document).ready(function() {
+            $(document).on('click', '#newCustomer', function() {
                 var id = $(this).attr('data-id');
                 //   window.alert(id);    
                 $.ajax({

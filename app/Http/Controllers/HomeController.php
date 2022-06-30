@@ -75,7 +75,8 @@ class HomeController extends Controller
 		$totalOrders = Order::count();
 		$time = Carbon::now()->subDays(3)->format('Y-m-d H:i:s');
 		$new = Customer::where('created_at', '>', $time)->count();
-
+		echo "<pre>";
+        print_r($rowspanArr);
 		return view("home", compact('customer', 'rowspanArr', 'totalUsers', 'totalCustomers', 'new', 'totalOrders'));
 	}
 

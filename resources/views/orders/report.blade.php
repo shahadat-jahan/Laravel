@@ -10,60 +10,41 @@
                         <label>From</label>
                     </div>
                     <div class="col-2">
-                        <input class="form-control" type="date" name="from_date" value="">
+                        <input class="form-control" type="date" name="from_date" value="{{ Request::get('f_date') }}">
                     </div>
                     <div class="col-1">
                         <label>To</label>
                     </div>
                     <div class="col-2">
-                        <input class="form-control" type="date" name="to_date" value="">
+                        <input class="form-control" type="date" name="to_date" value="{{ Request::get('t_date') }}">
                     </div>
-                    <div class="col-2 offset-1">
+                    <div class="col-2">
                         <select class="form-select" name="customer_id">
                             <option value="">Select customer</option>
-                            <?php
-                            //get customer
-                            if ($customers) {
-                                foreach ($customers as $row) {
-                                    $customerId = $row['id'];
-                                    $customer = $row['fname'] . ' ' . $row['lname'];
-                                    echo '<option value="' . $customerId . '">' . $customer . '</option>';
-                                }
-                            }
-                            ?>
+                            
+                            {{-- get customer --}}
+                            @if ($customers) 
+                                @foreach ($customers as $row) 
+                                <option value="{{ $row->id }}" 
+                                    {{ (Request::get('customer_id')==$row->id ) ? 'selected' : ''}}>
+                                    {{ $row->fname.' '.$row->lname }}
+                                </option>
+                                @endforeach
+                            @endif
+                            
                         </select>
                     </div>
-                    <div class="col-3 d-flex justify-content-end">
-                        <button class="btn btn-outline-success" type="submit" name="search">
+                    <div class="col-4 d-flex justify-content-end">
+                        <button class="btn btn-outline-success mr-1" type="submit" name="search">
                             Generate report
                         </button>
+                        <a href="{{ route('orders.report',['download'=>'pdf']) }}" class="btn btn-outline-success" type="button" name="search">
+                            Generate PDF
+                        </a>
                     </div>
                 </div>
             </form>
-            <div class="table-responsive ">
-                <table class="table align-middle table-bordered table-success table-striped table-hover text-center">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Order No.</th>
-                            <th>Customer name</th>
-                            <th>Product name</th>
-                            {{-- <th>Quantity</th> --}}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            {{-- <td></td> --}}
-                        </tr>
-                        {{-- <tr>
-                            <td colspan="8">No data found</td>
-                        </tr> --}}
-
-                    </tbody>
-                </table>
-            </div>
+            @include('orders.include.reportPDF')
             <!--display the link of the pages in URL-->
         </div>
     </div>

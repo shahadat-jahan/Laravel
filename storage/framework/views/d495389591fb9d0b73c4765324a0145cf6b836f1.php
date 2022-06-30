@@ -100,7 +100,7 @@
                     </div>
                     <br />
                     <button class="btn btn-success" type="submit" name="submit">Submit</button>
-                    <a class="btn btn-primary" href="<?php echo e(route('productPurchases.orderList')); ?>">Back</a>
+                    <a class="btn btn-primary" href="<?php echo e(route('orders.index')); ?>">Back</a>
                 </form>
             </div>
         </div>

@@ -80,9 +80,7 @@
 			?>
                     <tr>
                         <td rowspan="{{ !empty($rowspanArr['div'][$divId]) ? $rowspanArr['div'][$divId] : 1 }}">
-                            <a style="text-decoration: none; color: black" href="">
-                                {{ !empty($divInfo['division_name']) ? $divInfo['division_name'] : 0 }}
-                            </a>
+                            {{ !empty($divInfo['division_name']) ? $divInfo['division_name'] : 0 }}
                         </td>
                         <?php
 			    if (!empty($divInfo['district'])) {
@@ -92,12 +90,8 @@
 					?>
                     <tr>
                         <?php } ?>
-
-                        <td
-                            rowspan="{{ !empty($rowspanArr['dis'][$divId][$disId]) ? $rowspanArr['dis'][$divId][$disId] : 1 }}">
-                            <a style="text-decoration: none; color: black" href="">
-                                {{ !empty($disInfo['district_name']) ? $disInfo['district_name'] : 0 }}
-                            </a>
+                        <td rowspan="{{ !empty($rowspanArr['dis'][$divId][$disId]) ? $rowspanArr['dis'][$divId][$disId] : 1 }}">                        
+                            {{ !empty($disInfo['district_name']) ? $disInfo['district_name'] : 0 }}
                         </td>
                         <?php
 				    if (!empty($disInfo['thana'])) {
@@ -107,7 +101,6 @@
 						?>
                     <tr>
                         <?php } ?>
-
                         <td
                             rowspan="{{ !empty($rowspanArr['th'][$divId][$disId][$thId]) ? $rowspanArr['th'][$divId][$disId][$thId] : 1 }}">
                             {{ !empty($thInfo['thana_name']) ? $thInfo['thana_name'] : 0 }}
@@ -180,8 +173,8 @@
         </div>
     </div>
     <script type="text/javascript">
-     $(document).ready(function() {
-        $(document).on('click', '#newCustomer', function() {
+        $(document).ready(function() {
+            $(document).on('click', '#newCustomer', function() {
                 var id = $(this).attr('data-id');
                 //   window.alert(id);    
                 $.ajax({

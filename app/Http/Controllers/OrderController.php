@@ -6,6 +6,9 @@ use App\Order;
 use App\Customer;
 use App\ProductPurchase;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use PDF;
+use Illuminate\Support\Facades\View;
 
 class OrderController extends Controller
 {
@@ -74,16 +77,60 @@ class OrderController extends Controller
         $f_d = $request->f_date;
         $t_d = $request->t_date;
         $c_id = $request->customer_id;
-        echo "f-date: ".$f_d." t-date: ".$t_d." c-id: ".$c_id;
+        $data = [];
+        $rowspanArr = [];
         $customers = Customer::all();
-        return view("orders.report", compact('customers'));
+        if (!empty($f_d) && !empty($t_d)) {
+            $startDate = Carbon::createFromFormat('Y-m-d', $f_d)->format('Y-m-d 00:00:00');
+            $endDate = Carbon::createFromFormat('Y-m-d', $t_d)->format('Y-m-d 23:59:59');
+            $report = Order::whereBetween('created_at', [$startDate, $endDate])
+                ->where('customer_id', '=', $c_id)->get();
+
+          
+            if (!empty($report)) {
+                foreach ($report as $key => $value) {
+                    $data[$value['customer_id']]['customer_name'] = $value->customer->fname . ' ' . $value->customer->lname;
+                    $data[$value['customer_id']]['order'][$value['id']]['order_no'] = $value['order_no'];
+                    $product = ProductPurchase::select('product_id')->where('order_id', '=', $value['id'])->get();
+                    foreach ($product as $k => $v) {
+                        $data[$value['customer_id']]['order'][$value['id']]['product'][$v['product_id']]['product_name'] = $v->product->name;
+                    }
+                }
+            }
+        
+           
+            if (!empty($data)) {
+                foreach ($data as $customerId => $customerInfo) {
+                    if (!empty($customerInfo['order'])) {
+                        foreach ($customerInfo['order'] as $orderId => $orderInfo) {
+                            if (!empty($orderInfo['product'])) {
+                                foreach ($orderInfo['product'] as $productId => $productInfo) {
+
+                                    $rowspanArr['customer'][$customerId] = !empty($rowspanArr['customer'][$customerId]) ? $rowspanArr['customer'][$customerId] : 0;
+                                    $rowspanArr['customer'][$customerId] += 1;
+
+                                    $rowspanArr['order'][$customerId][$orderId] = !empty($rowspanArr['order'][$customerId][$orderId]) ? $rowspanArr['order'][$customerId][$orderId] : 0;
+                                    $rowspanArr['order'][$customerId][$orderId] += 1;
+
+                                    $rowspanArr['product'][$customerId][$orderId][$productId] = !empty($rowspanArr['product'][$customerId][$orderId][$productId]) ? $rowspanArr['product'][$customerId][$orderId][$productId] : 0;
+                                    $rowspanArr['product'][$customerId][$orderId][$productId] += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        View()->share(compact('customers', 'data', 'rowspanArr'));
+        if($request->download == 'pdf'){  
+            $pdf = PDF::loadView('orders.include.reportPDF');  
+            return $pdf->stream();  
+        }
+        return view("orders.report");
     }
 
     public function showReport(Request $request)
     {
-        // echo "<pre>";
-        // print_r($request->all());
-        // exit;
         $url = '/orders/report/?' . 'f_date=' . $request->from_date . '&t_date=' . $request->to_date . '&customer_id=' . $request->customer_id;
         return redirect($url);
     }
