@@ -22,19 +22,8 @@
                         </div>
                         <div class="col">
                             <label class="input-group">Customer</label>
-                            <select class="form-select" name="customer_id">
-                                <option value="">Select customer</option>
-                                <?php
-                                //get customer
-                                if ($customers) {
-                                    foreach ($customers as $row) {
-                                        $customerId = $row['id'];
-                                        $customer = $row['fname'] . ' ' . $row['lname'];
-                                        echo '<option value="' . $customerId . '">' . $customer . '</option>';
-                                    }
-                                }
-                                ?>
-                            </select>
+                            <?php echo Form::select('customer_id', $customers, null, ['class' => 'form-select', 'placeholder' => 'Select customer']); ?>
+
                         </div>
                     </div>
                     <div class="row p-1">
@@ -48,20 +37,8 @@
                         </div>
                         <div class="col-5">
                             <label class="input-group">Product</label>
-                            <select class="products form-select" name="product[<?php echo e($key); ?>][product_id]">
-                                <option value="">Select product</option>
-                                <?php
-                                //get product
-                                if ($products) {
-                                    $productId = '';
-                                    foreach ($products as $row) {
-                                        $productId = $row['id'];
-                                        $product = $row['name'];
-                                        echo '<option value="' . $productId . '">' . $product . '</option>';
-                                    }
-                                }
-                                ?>
-                            </select>
+                            <?php echo Form::select('product[<?php echo e($key); ?>][product_id]', $products, null, ['class' => 'products form-select', 'placeholder' => 'Select product']); ?>
+
                         </div>
                         <div class="col-3">
                             <label class="input-group">Quantity</label>

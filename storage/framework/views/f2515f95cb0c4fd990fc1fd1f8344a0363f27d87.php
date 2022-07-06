@@ -1,4 +1,4 @@
-<?php if($newCustomers): ?>
+<?php if(!($newCustomers)->isEmpty()): ?>
     <?php
      $i = 0;   
     ?>
@@ -10,7 +10,7 @@
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 <?php else: ?>
     <?php
-        echo 'No modal found.';
+        echo 'No new customer.';
     ?>
 <?php endif; ?>
 <?php /**PATH E:\Xampp\htdocs\shahadat_laravel\resources\views/newCustomerModal.blade.php ENDPATH**/ ?>

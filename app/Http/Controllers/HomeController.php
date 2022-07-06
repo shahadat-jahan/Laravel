@@ -75,15 +75,13 @@ class HomeController extends Controller
 		$totalOrders = Order::count();
 		$time = Carbon::now()->subDays(3)->format('Y-m-d H:i:s');
 		$new = Customer::where('created_at', '>', $time)->count();
-		echo "<pre>";
-        print_r($rowspanArr);
 		return view("home", compact('customer', 'rowspanArr', 'totalUsers', 'totalCustomers', 'new', 'totalOrders'));
 	}
 
 	public function newCustomerModal(Request $request)
 	{
 		$time = Carbon::now()->subDays(3)->format('Y-m-d H:i:s');
-		$newCustomers = Customer::where('created_at', '>', $time)->get();
+		$newCustomers = Customer::orderBy('created_at', 'desc')->where('created_at', '>', $time)->get();
 		$view = view('newCustomerModal', compact("newCustomers"))->render();
 		return response()->json(['html' => $view]);
 	}

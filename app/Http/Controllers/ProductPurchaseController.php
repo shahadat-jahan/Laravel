@@ -7,6 +7,7 @@ use App\Product;
 use App\ProductPurchase;
 use App\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductPurchaseController extends Controller
 {
@@ -37,8 +38,9 @@ class ProductPurchaseController extends Controller
 	 */
 	public function create()
 	{
-		$customers = Customer::all();
-		$products = Product::where('status', '=', 1)->get();
+		$customers = Customer::select(DB::raw("id, CONCAT(fname, ' ', lname) as name"))
+            ->where('status', '1')->pluck('name', 'id')->toArray();
+		$products = Product::where('status', '1')->pluck('name', 'id')->toArray();
 		return view("productPurchases.create", compact('customers', 'products'));
 	}
 

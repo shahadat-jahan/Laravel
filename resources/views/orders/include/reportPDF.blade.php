@@ -1,71 +1,106 @@
-<div class="table-responsive ">
-    <table class="table align-middle table-bordered table-success text-center">
-        <thead class="table-dark">
-            <tr>
-                <th>Customer name</th>
-                <th>Order No.</th>
-                <th>Product name</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php 
-            if(!empty($data) && count($data)>0){                   
-                foreach ($data as $customerId => $customerInfo) {
-            ?>
-            <tr>
-                <td class="align-middle" rowspan="{{ !empty($rowspanArr['customer'][$customerId]) ? $rowspanArr['customer'][$customerId] : 1 }}">
-                    {{ $customerInfo['customer_name'] }}
-                </td>
-                <?php
-                if(!empty($customerInfo['order'])){
-                    $i = 0;
-                    foreach ($customerInfo['order'] as $orderId => $orderInfo) {
-                        if($i>0){ ?>
-            <tr>
-                    <?php } ?>
-                <td class="align-middle" rowspan="{{ !empty($rowspanArr['order'][$customerId][$orderId]) ? $rowspanArr['order'][$customerId][$orderId] : 1 }}">
-                    {{ $orderInfo['order_no'] }}
-                </td>
-                <?php
-                if(!empty($orderInfo['product'])){
-                    $j=0;
-                    foreach ($orderInfo['product'] as $productId => $productInfo) {
-                        if ($j > 0) { ?>
-            <tr>
-                    <?php } ?>
-                <td class="align-middle" rowspan="{{ !empty( $rowspanArr['product'][$customerId][$orderId][$productId]) ?  $rowspanArr['product'][$customerId][$orderId][$productId] : 1 }}">
-                    {{ $productInfo['product_name'] }}
-                </td>
-                    <?php 
-                        if ($j < $rowspanArr['order'][$customerId][$orderId] - 1){ 
-                    ?>
-            </tr>
-                    <?php 
-                        }
-                    $j++;
-                    }
-                }
-                if( $i < $rowspanArr['customer'][$customerId] - 1){ 
-                    ?>
-            </tr>
-                    <?php
-                        }
-                    $i++;
-                    }
-                }
-                    ?>
-            </tr>
-            <?php
-                }
-            }
-            else{
-            ?>
-            <tr>
-                <td class="align-middle" colspan="8">No data found</td>
-            </tr>
-            <?php 
-            } 
-            ?>
-        </tbody>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ReportPDF</title>
+    <style type="text/css">
+        * {
+            font-family: Verdana, Arial, sans-serif;
+            text-align: center;
+        }
+
+        @page {
+            margin: 5px;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        table {
+            width: 100%;
+            content: center;
+            text-align: center;
+        }
+
+        th {
+            font-weight: bold;
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    @if (Request::get('generate') == 'true')
+        <div>
+            <h2>@lang('label.ORDER_REPORT')</h2>
+            <p>From: {{ Request::get('from_date') }}, To: {{ Request::get('to_date') }}</p>
+        </div>
+        <table border=1px; cellpadding=0; cellspacing=0;>
+            <thead>
+                <tr>
+                    <th>@lang('label.ORDER_NO')</th>
+                    <th>@lang('label.DATE')</th>
+                    <th>@lang('label.CUSTOMER')</th>
+                    <th>@lang('label.PRODUCT')</th>
+                    <th>@lang('label.QTY')</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!empty($data))
+                    @foreach ($data as $orderId => $order)
+                        <tr>
+                            <td rowspan="{{ !empty($rowspanArr[$orderId]) ? $rowspanArr[$orderId] : 1 }}">
+                                {{ $order['order_no'] ?? '' }}</td>
+                            <td rowspan="{{ !empty($rowspanArr[$orderId]) ? $rowspanArr[$orderId] : 1 }}">
+                                {{ $order['created_at'] ?? '' }}</td>
+                            <td rowspan="{{ !empty($rowspanArr[$orderId]) ? $rowspanArr[$orderId] : 1 }}">
+                                {{ $order['customer'] ?? '' }}</td>
+                            @if (!empty($order['purchase']))
+                                @php
+                                    $i = 0;
+                                @endphp
+                                @foreach ($order['purchase'] as $productId => $product)
+                                    @if ($i > 0)
+                        <tr>
+                    @endif
+                    <td>{{ $product['product'] ?? '' }}</td>
+                    <td>{{ !empty($product['qty']) ? ($product['qty'] > 1 ? $product['qty'] . '/Boxes' : $product['qty'] . '/Box') : '0.00' }}
+                    </td>
+
+                    {{-- @if ($i == 0)
+                                <td class="align-middle" rowspan="{{ !empty($rowspanArr[$orderId]) ? $rowspanArr[$orderId] : 1 }}">
+                                    {{ $order['created_at'] ?? '' }}</td>
+                            @endif --}}
+
+                    @if ($i < $rowspanArr[$orderId] - 1)
+                        </tr>
+                    @endif
+                    @php
+                        $i++;
+                    @endphp
+                @endforeach
+    @endif
+    </tr>
+    @endforeach
+@else
+    <tr>
+        <td colspan="8">No data found</td>
+    </tr>
+    @endif
+    </tbody>
     </table>
-</div>
+    @endif
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            window.print();
+        });
+    </script>
+</body>
+
+</html>

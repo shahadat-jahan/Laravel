@@ -42,11 +42,10 @@
                             @php
                                 $i = 0;
                                 $page = 1;
-                                $limit = session('paginate');
+                                $limit = session('paginateCount');
                                 !empty($_GET['page']) ? ($page = $_GET['page']) : $page;
                                 $i = ($page - 1) * $limit;
                             @endphp
-
                             @foreach ($products as $row)
                                 @if ($row->status == 1)
                                     @php $status = 'Active'; @endphp
@@ -56,7 +55,8 @@
                                 <tr>
                                     <td>{{ ++$i }}</td>
                                     <td>
-                                        <a class="text-decoration-none text-dark" href="{{ route('products.edit', $row->id) }}">
+                                        <a class="text-decoration-none text-dark"
+                                            href="{{ route('products.edit', $row->id) }}">
                                             {{ $row->name }}
                                         </a>
                                     </td>

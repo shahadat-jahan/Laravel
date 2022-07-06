@@ -86,6 +86,7 @@ Route::post('/orders/search', 'OrderController@search')->name('orders.search');
 Route::get('/orders/destroy/{id}', 'OrderController@destroy')->name('orders.destroy');
 Route::get('/orders/report', 'OrderController@report')->name('orders.report');
 Route::post('/orders/show-report', 'OrderController@showReport')->name('orders.showReport');
+Route::get('/orders/export-report', 'OrderController@exportReport')->name('orders.exportReport');
 
 //ProductPurchase route
 Route::get('/product-purchases', 'ProductPurchaseController@index')->name('productPurchases.index');

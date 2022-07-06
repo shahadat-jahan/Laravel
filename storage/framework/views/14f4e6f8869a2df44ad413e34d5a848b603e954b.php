@@ -42,11 +42,10 @@
                             <?php
                                 $i = 0;
                                 $page = 1;
-                                $limit = session('paginate');
+                                $limit = session('paginateCount');
                                 !empty($_GET['page']) ? ($page = $_GET['page']) : $page;
                                 $i = ($page - 1) * $limit;
                             ?>
-
                             <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php if($row->status == 1): ?>
                                     <?php $status = 'Active'; ?>
@@ -56,7 +55,8 @@
                                 <tr>
                                     <td><?php echo e(++$i); ?></td>
                                     <td>
-                                        <a class="text-decoration-none text-dark" href="<?php echo e(route('products.edit', $row->id)); ?>">
+                                        <a class="text-decoration-none text-dark"
+                                            href="<?php echo e(route('products.edit', $row->id)); ?>">
                                             <?php echo e($row->name); ?>
 
                                         </a>

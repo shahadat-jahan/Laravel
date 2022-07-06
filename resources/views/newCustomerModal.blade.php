@@ -1,4 +1,4 @@
-@if ($newCustomers)
+@if (!($newCustomers)->isEmpty())
     @php
      $i = 0;   
     @endphp
@@ -10,6 +10,6 @@
     @endforeach
 @else
     @php
-        echo 'No modal found.';
+        echo 'No new customer.';
     @endphp
 @endif
