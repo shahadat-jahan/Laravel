@@ -36,7 +36,7 @@
 </head>
 
 <body>
-    @if (Request::get('generate') == 'true')
+    @if (Request::get('generate') == 'true' && (Request::get('download') == 'pdf' || Request::get('view') == 'print'))
         <div>
             <h2>@lang('label.ORDER_REPORT')</h2>
             <p>From: {{ Request::get('from_date') }}, To: {{ Request::get('to_date') }}</p>
@@ -77,6 +77,73 @@
                                 <td class="align-middle" rowspan="{{ !empty($rowspanArr[$orderId]) ? $rowspanArr[$orderId] : 1 }}">
                                     {{ $order['created_at'] ?? '' }}</td>
                             @endif --}}
+
+                    @if ($i < $rowspanArr[$orderId] - 1)
+                        </tr>
+                    @endif
+                    @php
+                        $i++;
+                    @endphp
+                @endforeach
+    @endif
+    </tr>
+    @endforeach
+@else
+    <tr>
+        <td colspan="8">No data found</td>
+    </tr>
+    @endif
+    </tbody>
+    </table>
+    @endif
+
+    @if (Request::get('generate') == 'true' && Request::get('export') == 'exel')
+        <table border=1px; cellpadding=0; cellspacing=0;>
+            <thead>
+                <tr>
+                    <th colspan="5">
+                        @lang('label.ORDER_REPORT')
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="5">
+                        From: {{ Request::get('from_date') }}, To: {{ Request::get('to_date') }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>@lang('label.ORDER_NO')</th>
+                    <th>@lang('label.DATE')</th>
+                    <th>@lang('label.CUSTOMER')</th>
+                    <th>@lang('label.PRODUCT')</th>
+                    <th>@lang('label.QTY')</th>
+                </tr>
+                @if (!empty($data))
+                    @foreach ($data as $orderId => $order)
+                        <tr>
+                            <td rowspan="{{ !empty($rowspanArr[$orderId]) ? $rowspanArr[$orderId] : 1 }}">
+                                {{ $order['order_no'] ?? '' }}</td>
+                            <td rowspan="{{ !empty($rowspanArr[$orderId]) ? $rowspanArr[$orderId] : 1 }}">
+                                {{ $order['created_at'] ?? '' }}</td>
+                            <td rowspan="{{ !empty($rowspanArr[$orderId]) ? $rowspanArr[$orderId] : 1 }}">
+                                {{ $order['customer'] ?? '' }}</td>
+                            @if (!empty($order['purchase']))
+                                @php
+                                    $i = 0;
+                                @endphp
+                                @foreach ($order['purchase'] as $productId => $product)
+                                    @if ($i > 0)
+                        <tr>
+                    @endif
+                    <td>{{ $product['product'] ?? '' }}</td>
+                    <td>{{ !empty($product['qty']) ? ($product['qty'] > 1 ? $product['qty'] . '/Boxes' : $product['qty'] . '/Box') : '0.00' }}
+                    </td>
+
+                    {{-- @if ($i == 0)
+                            <td class="align-middle" rowspan="{{ !empty($rowspanArr[$orderId]) ? $rowspanArr[$orderId] : 1 }}">
+                                {{ $order['created_at'] ?? '' }}</td>
+                        @endif --}}
 
                     @if ($i < $rowspanArr[$orderId] - 1)
                         </tr>

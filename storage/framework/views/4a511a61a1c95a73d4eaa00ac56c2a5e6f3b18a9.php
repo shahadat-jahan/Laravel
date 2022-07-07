@@ -36,7 +36,7 @@
 </head>
 
 <body>
-    <?php if(Request::get('generate') == 'true'): ?>
+    <?php if(Request::get('generate') == 'true' && (Request::get('download') == 'pdf' || Request::get('view') == 'print')): ?>
         <div>
             <h2><?php echo app('translator')->get('label.ORDER_REPORT'); ?></h2>
             <p>From: <?php echo e(Request::get('from_date')); ?>, To: <?php echo e(Request::get('to_date')); ?></p>
@@ -52,6 +52,72 @@
                 </tr>
             </thead>
             <tbody>
+                <?php if(!empty($data)): ?>
+                    <?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $orderId => $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr>
+                            <td rowspan="<?php echo e(!empty($rowspanArr[$orderId]) ? $rowspanArr[$orderId] : 1); ?>">
+                                <?php echo e($order['order_no'] ?? ''); ?></td>
+                            <td rowspan="<?php echo e(!empty($rowspanArr[$orderId]) ? $rowspanArr[$orderId] : 1); ?>">
+                                <?php echo e($order['created_at'] ?? ''); ?></td>
+                            <td rowspan="<?php echo e(!empty($rowspanArr[$orderId]) ? $rowspanArr[$orderId] : 1); ?>">
+                                <?php echo e($order['customer'] ?? ''); ?></td>
+                            <?php if(!empty($order['purchase'])): ?>
+                                <?php
+                                    $i = 0;
+                                ?>
+                                <?php $__currentLoopData = $order['purchase']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $productId => $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php if($i > 0): ?>
+                        <tr>
+                    <?php endif; ?>
+                    <td><?php echo e($product['product'] ?? ''); ?></td>
+                    <td><?php echo e(!empty($product['qty']) ? ($product['qty'] > 1 ? $product['qty'] . '/Boxes' : $product['qty'] . '/Box') : '0.00'); ?>
+
+                    </td>
+
+                    
+
+                    <?php if($i < $rowspanArr[$orderId] - 1): ?>
+                        </tr>
+                    <?php endif; ?>
+                    <?php
+                        $i++;
+                    ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <?php endif; ?>
+    </tr>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<?php else: ?>
+    <tr>
+        <td colspan="8">No data found</td>
+    </tr>
+    <?php endif; ?>
+    </tbody>
+    </table>
+    <?php endif; ?>
+
+    <?php if(Request::get('generate') == 'true' && Request::get('export') == 'exel'): ?>
+        <table border=1px; cellpadding=0; cellspacing=0;>
+            <thead>
+                <tr>
+                    <th colspan="5">
+                        <?php echo app('translator')->get('label.ORDER_REPORT'); ?>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="5">
+                        From: <?php echo e(Request::get('from_date')); ?>, To: <?php echo e(Request::get('to_date')); ?>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th><?php echo app('translator')->get('label.ORDER_NO'); ?></th>
+                    <th><?php echo app('translator')->get('label.DATE'); ?></th>
+                    <th><?php echo app('translator')->get('label.CUSTOMER'); ?></th>
+                    <th><?php echo app('translator')->get('label.PRODUCT'); ?></th>
+                    <th><?php echo app('translator')->get('label.QTY'); ?></th>
+                </tr>
                 <?php if(!empty($data)): ?>
                     <?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $orderId => $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>

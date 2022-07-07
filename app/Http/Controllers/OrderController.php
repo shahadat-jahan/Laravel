@@ -134,7 +134,11 @@ class OrderController extends Controller
             return $pdf->stream();
         } elseif ($request->export == 'exel') {
             // return redirect('/orders/export-report')->with('data', $data);
-            return redirect()->route('orders.exportReport', ['data' => $data]);
+            // return redirect()->route('orders.exportReport', ['data' => $data, 'rowspanArr' => $rowspanArr]);
+            $export = new ReportExport(
+               ['data' => $data, 'rowspanArr' => $rowspanArr]
+            );
+            return Excel::download($export, 'report.xlsx');
         } else {
             return view("orders.report", compact('customers', 'data', 'rowspanArr'));
         }
@@ -165,11 +169,12 @@ class OrderController extends Controller
 
     public function exportReport(Request $request)
     {
-        // echo "<pre>";
-        // print_r($request->data);
-        // exit;
+        echo "<pre>";
+        print_r($request->all());
+        exit;
         $export = new ReportExport([
-            $request->data
+            $request->data,
+            $request->rowspanArr
         ]);
         return Excel::download($export, 'report.xlsx');
     }
