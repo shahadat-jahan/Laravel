@@ -28,15 +28,15 @@
                 <div class="col-4 d-flex justify-content-end">
                     {!! Form::submit(__('label.REPORT'), ['class' => 'btn btn-outline-success ml-1', 'name' => 'search']) !!}
                     @if (Request::get('generate') == 'true' && !empty($data))
-                        {{-- {!! form::link_to('URL::full() . &download=pdf', __('label.DOWNLOAD'), ['class' => 'btn btn-outline-success ml-1'], null) !!} --}}
+                        {{-- {!! form::link_to('URL::full() . &download=pdf', __('label.PDF'), ['class' => 'btn btn-outline-success ml-1'], null) !!} --}}
                         <a href="{{ URL::full() . '&download=pdf' }}" class="btn btn-outline-success ml-1" type="button">
-                            @lang('label.DOWNLOAD')
+                            @lang('label.PDF')
+                        </a>
+                        <a href="{{ URL::full() . '&export=exel' }}" class="btn btn-outline-success  ml-1" type="button">
+                            @lang('label.Exel')
                         </a>
                         <a href="{{ URL::full() . '&view=print' }}" id="print" class="btn btn-outline-success  ml-1" type="button">
                             @lang('label.PRINT')
-                        </a>
-                        <a href="{{ URL::full() . '&export=exel' }}" class="btn btn-outline-success  ml-1" type="button">
-                            @lang('label.EXPORT')
                         </a>
                     @endif
                 </div>

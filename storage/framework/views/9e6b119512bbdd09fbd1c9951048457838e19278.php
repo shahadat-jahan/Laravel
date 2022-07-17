@@ -9,7 +9,7 @@
                 <button class="btn btn-success" type="submit" name="submit">Upload</button>
             </form>
             <a href="<?php echo e(asset('public/images/img_5terre.jpg')); ?>" data-lightbox="photos">
-            <img class="img-fluid img-thumbnail m-2" src="<?php echo e(asset('public/images/img_5terre.jpg')); ?>" alt="Cinque Terre"
+            <img id="myModal" class="img-fluid img-thumbnail m-2" src="<?php echo e(asset('public/images/img_5terre.jpg')); ?>" alt="Cinque Terre"
                 width="300" height="200">
             </a>
 

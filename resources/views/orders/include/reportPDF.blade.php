@@ -13,7 +13,7 @@
         }
 
         @page {
-            margin: 5px;
+            margin: 5px 30px;
         }
 
         a {
@@ -39,7 +39,7 @@
     @if (Request::get('generate') == 'true' && (Request::get('download') == 'pdf' || Request::get('view') == 'print'))
         <div>
             <h2>@lang('label.ORDER_REPORT')</h2>
-            <p>From: {{ Request::get('from_date') }}, To: {{ Request::get('to_date') }}</p>
+            <p>From: {{ Request::get('from_date') }} To: {{ Request::get('to_date') }}</p>
         </div>
         <table border=1px; cellpadding=0; cellspacing=0;>
             <thead>
@@ -107,7 +107,7 @@
                 </tr>
                 <tr>
                     <th colspan="5">
-                        From: {{ Request::get('from_date') }}, To: {{ Request::get('to_date') }}
+                        From: {{ Request::get('from_date') }} To: {{ Request::get('to_date') }}
                     </th>
                 </tr>
             </thead>

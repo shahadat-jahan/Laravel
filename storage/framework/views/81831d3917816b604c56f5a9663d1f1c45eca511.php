@@ -36,13 +36,13 @@
                     <?php if(Request::get('generate') == 'true' && !empty($data)): ?>
                         
                         <a href="<?php echo e(URL::full() . '&download=pdf'); ?>" class="btn btn-outline-success ml-1" type="button">
-                            <?php echo app('translator')->get('label.DOWNLOAD'); ?>
+                            <?php echo app('translator')->get('label.PDF'); ?>
+                        </a>
+                        <a href="<?php echo e(URL::full() . '&export=exel'); ?>" class="btn btn-outline-success  ml-1" type="button">
+                            <?php echo app('translator')->get('label.Exel'); ?>
                         </a>
                         <a href="<?php echo e(URL::full() . '&view=print'); ?>" id="print" class="btn btn-outline-success  ml-1" type="button">
                             <?php echo app('translator')->get('label.PRINT'); ?>
-                        </a>
-                        <a href="<?php echo e(URL::full() . '&export=exel'); ?>" class="btn btn-outline-success  ml-1" type="button">
-                            <?php echo app('translator')->get('label.EXPORT'); ?>
                         </a>
                     <?php endif; ?>
                 </div>

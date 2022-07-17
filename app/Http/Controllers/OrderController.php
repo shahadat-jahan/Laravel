@@ -131,7 +131,7 @@ class OrderController extends Controller
         } elseif ($request->download == 'pdf') {
             $pdf = PDF::loadView('orders.include.reportPDF', compact('data', 'rowspanArr'));
             // return $pdf->download('report.pdf');
-            return $pdf->stream();
+            return $pdf->download('report.pdf');
         } elseif ($request->export == 'exel') {
             // return redirect('/orders/export-report')->with('data', $data);
             // return redirect()->route('orders.exportReport', ['data' => $data, 'rowspanArr' => $rowspanArr]);
