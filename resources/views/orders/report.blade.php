@@ -12,14 +12,12 @@
                 </div>
                 <div class="col-2">
                     {!! Form::date('from_date', Request::get('from_date'), ['class' => 'form-control']) !!}
-                    <span>{{ $errors->first('from_date') }}</span>
                 </div>
                 <div class="col-1">
                     <label>@lang('label.TO')</label>
                 </div>
                 <div class="col-2">
                     {!! Form::date('to_date', Request::get('to_date'), ['class' => 'form-control']) !!}
-                    <span>{{ $errors->first('to_date') }}</span>
                 </div>
                 {{-- get customer --}}
                 <div class="col-2">
@@ -28,7 +26,6 @@
                 <div class="col-4 d-flex justify-content-end">
                     {!! Form::submit(__('label.REPORT'), ['class' => 'btn btn-outline-success ml-1', 'name' => 'search']) !!}
                     @if (Request::get('generate') == 'true' && !empty($data))
-                        {{-- {!! form::link_to('URL::full() . &download=pdf', __('label.PDF'), ['class' => 'btn btn-outline-success ml-1'], null) !!} --}}
                         <a href="{{ URL::full() . '&download=pdf' }}" class="btn btn-outline-success ml-1" type="button">
                             @lang('label.PDF')
                         </a>
@@ -41,6 +38,14 @@
                     @endif
                 </div>
             </div>
+            <div class="row">
+                <div class="col-2 offset-1">
+                    <span>{{ $errors->first('from_date') }}</span>
+                </div>
+                <div class="col-2 offset-1">
+                    <span>{{ $errors->first('to_date') }}</span>
+                </div>
+           </div>
             {!! Form::close() !!}
             @if (Request::get('generate') == 'true')
                 <div class="table-responsive ">

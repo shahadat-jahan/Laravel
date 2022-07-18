@@ -24,9 +24,6 @@
                  <li class="nav-item">
                      <a class="nav-link" href="{{ route('thanas.index') }}">{{ __('Thanas') }}</a>
                  </li>
-                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('orders.report') }}">{{ __('Report') }}</a>
-                </li>
              </ul>
          @endif
 
@@ -92,13 +89,3 @@
          </ul>
      </div>
  </nav>
- <script type="text/javascript">
-     $(function() {
-         $('a').each(function() {
-             if ($(this).prop('href') == window.location.href) {
-                 $(this).addClass('active');
-                 $(this).parents().addClass('active');
-             }
-         });
-     });
- </script>

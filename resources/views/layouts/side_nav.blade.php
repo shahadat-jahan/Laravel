@@ -42,7 +42,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link ">
+                        <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="nav-icon fa-solid fa-cart-shopping"></i>
                             <p>
                                 Purchase
@@ -60,6 +60,12 @@
                                 <a href="{{ route('orders.index') }}" class="nav-link ">
                                     <i class="fas fa-boxes nav-icon"></i>
                                     <p>Order list</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('orders.report') }}" class="nav-link ">
+                                    <i class="fa-solid fa-receipt nav-icon"></i>
+                                    <p>Report</p>
                                 </a>
                             </li>
                         </ul>

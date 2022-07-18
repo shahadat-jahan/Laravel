@@ -97,6 +97,8 @@ class CustomerController extends Controller
 	 */
 	public function store(Request $request)
 	{
+		$file='';
+		$filename='';
 		$this->validate($request, [
 			'fname' => 'required|string|max:255',
 			'lname' => 'required',
@@ -112,9 +114,9 @@ class CustomerController extends Controller
 		]);
 		if ($request->hasFile('image')) {
 			$file = $request->file('image');
+			$filename = 'Customer' . time() . '.' . $file->extension();
+			$file->move(public_path("images"), $filename);
 		}
-		$filename = 'Customer' . time() . '.' . $file->extension();
-		$file->move(public_path("images"), $filename);
 
 		$customer = new Customer;
 
@@ -175,6 +177,8 @@ class CustomerController extends Controller
 	 */
 	public function update(Request $request)
 	{
+		$file ='';
+		$filename ='';
 		$id = $request->id;
 		$this->validate($request, [
 			'fname' => 'required|string|max:255',

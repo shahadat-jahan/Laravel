@@ -15,7 +15,6 @@
                 <div class="col-2">
                     <?php echo Form::date('from_date', Request::get('from_date'), ['class' => 'form-control']); ?>
 
-                    <span><?php echo e($errors->first('from_date')); ?></span>
                 </div>
                 <div class="col-1">
                     <label><?php echo app('translator')->get('label.TO'); ?></label>
@@ -23,7 +22,6 @@
                 <div class="col-2">
                     <?php echo Form::date('to_date', Request::get('to_date'), ['class' => 'form-control']); ?>
 
-                    <span><?php echo e($errors->first('to_date')); ?></span>
                 </div>
                 
                 <div class="col-2">
@@ -34,7 +32,6 @@
                     <?php echo Form::submit(__('label.REPORT'), ['class' => 'btn btn-outline-success ml-1', 'name' => 'search']); ?>
 
                     <?php if(Request::get('generate') == 'true' && !empty($data)): ?>
-                        
                         <a href="<?php echo e(URL::full() . '&download=pdf'); ?>" class="btn btn-outline-success ml-1" type="button">
                             <?php echo app('translator')->get('label.PDF'); ?>
                         </a>
@@ -47,6 +44,14 @@
                     <?php endif; ?>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-2 offset-1">
+                    <span><?php echo e($errors->first('from_date')); ?></span>
+                </div>
+                <div class="col-2 offset-1">
+                    <span><?php echo e($errors->first('to_date')); ?></span>
+                </div>
+           </div>
             <?php echo Form::close(); ?>
 
             <?php if(Request::get('generate') == 'true'): ?>

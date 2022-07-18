@@ -24,9 +24,6 @@
                  <li class="nav-item">
                      <a class="nav-link" href="<?php echo e(route('thanas.index')); ?>"><?php echo e(__('Thanas')); ?></a>
                  </li>
-                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo e(route('orders.report')); ?>"><?php echo e(__('Report')); ?></a>
-                </li>
              </ul>
          <?php endif; ?>
 
@@ -94,14 +91,4 @@
          </ul>
      </div>
  </nav>
- <script type="text/javascript">
-     $(function() {
-         $('a').each(function() {
-             if ($(this).prop('href') == window.location.href) {
-                 $(this).addClass('active');
-                 $(this).parents().addClass('active');
-             }
-         });
-     });
- </script>
 <?php /**PATH E:\Xampp\htdocs\shahadat_laravel\resources\views/layouts/nav.blade.php ENDPATH**/ ?>
