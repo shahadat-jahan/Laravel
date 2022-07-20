@@ -3,7 +3,6 @@
     <div class="container-fluid content">
         <div class="container-fluid text-center">
             <h2>@lang('label.ORDER_REPORT')</h2>
-            {{-- <form class="form my-3" name="report" method="POST" action="{{ route('orders.showReport') }}"> --}}
             {!! Form::open(['route' => ['orders.showReport'], 'method' => 'POST', 'class' => 'form my-3']) !!}
             {!! Form::token() !!}
             <div class="row">
@@ -40,10 +39,10 @@
             </div>
             <div class="row">
                 <div class="col-2 offset-1">
-                    <span>{{ $errors->first('from_date') }}</span>
+                    <span class="text-danger">{{ $errors->first('from_date') }}</span>
                 </div>
                 <div class="col-2 offset-1">
-                    <span>{{ $errors->first('to_date') }}</span>
+                    <span class="text-danger">{{ $errors->first('to_date') }}</span>
                 </div>
            </div>
             {!! Form::close() !!}

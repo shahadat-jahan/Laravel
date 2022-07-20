@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\DistrictController;

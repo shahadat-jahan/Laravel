@@ -9,6 +9,7 @@ use App\District;
 use App\Thana;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
@@ -99,7 +100,7 @@ class CustomerController extends Controller
 	{
 		$file='';
 		$filename='';
-		$this->validate($request, [
+		$rules = [
 			'fname' => 'required|string|max:255',
 			'lname' => 'required',
 			'username' => 'required|unique:customers|max:100',
@@ -111,7 +112,18 @@ class CustomerController extends Controller
 			'address' => 'required',
 			'status' => 'required',
 			'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-		]);
+		];
+		$message = [
+			'division_id.required' => 'Division is required',
+			'district_id.required' => 'District is required',
+			'thana_id.required' => 'Thana is required'
+		];
+		$validator = Validator::make($request->all(), $rules, $message);
+        if ($validator->fails()) {
+            return redirect('/customers/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
 		if ($request->hasFile('image')) {
 			$file = $request->file('image');
 			$filename = 'Customer' . time() . '.' . $file->extension();
@@ -131,9 +143,11 @@ class CustomerController extends Controller
 		$customer->address = $request->address;
 		$customer->status = $request->status;
 		$customer->image = $filename;
-		$customer->save();
 
-		return redirect()->route('customers.index');
+		if($customer->save()){
+		return redirect()->route('customers.index')->with('success', 'Customer create successful!');
+		}
+		return back()->with('failed', 'Customer create failed!');
 	}
 
 	/**
@@ -207,8 +221,10 @@ class CustomerController extends Controller
 			$file->move(public_path("images"), $filename);
 			$customerUpdate->image = $filename;
 		}
-		$customerUpdate->save();
-		return redirect()->route('customers.index');
+		if($customerUpdate->save()){		
+		return redirect()->route('customers.index')->with('success', 'Customer update successful!');
+		}
+		return back()->with('failed', 'Customer update failed!');
 	}
 
 	/**
@@ -220,6 +236,6 @@ class CustomerController extends Controller
 	public function destroy($id)
 	{
 		Customer::find($id)->delete();
-		return redirect()->back();
+		return redirect()->back()->with('success', 'Customer delete successful!');
 	}
 }

@@ -3,6 +3,11 @@
     <div class="container-fluid content">
         <div class="container-fluid text-center col-10">
             <h2>Edit customer</h2>
+            @if (session()->has('failed'))
+                <div class="alert alert-danger">
+                    {{ session()->get('failed') }}
+                </div>
+            @endif
             <div class="input-group justify-content-center">
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -62,7 +67,8 @@
 
                     <div id="division-container">
                         <label class="input-group">@lang('label.add')</label>
-                        <select class="form-select my-2" id="division" name="division_id" onchange="showDistrict(this.value)">
+                        <select class="form-select my-2" id="division" name="division_id"
+                            onchange="showDistrict(this.value)">
                             <?php
                             //get division
                             if ($divisions) {
@@ -103,7 +109,7 @@
                         </select>
                     </div>
                     <div id="address-container">
-                    <textarea class="form-control my-2" name="address" rows="5" cols="50" placeholder="Write your address...">{{ $customer->address ?? '' }}</textarea>
+                        <textarea class="form-control my-2" name="address" rows="5" cols="50" placeholder="Write your address...">{{ $customer->address ?? '' }}</textarea>
                     </div>
                     <br />
                     <br />
@@ -132,50 +138,50 @@
         </div>
     </div>
     <script type="text/javascript">
-        $(document).ready(function () {
-        $("#division").on('change', function () {
-            var id = $(this).val( );
-            // window.alert(id);
-            $.ajax({
-            url: "{{ url('/customers/get-district') }}",
-            type: "POST",
-            dataType: 'json',
-            cache: false,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                "id": id
-            },
-    
-            success: function (res) {
-                $('#district').html(res.html);
-            }
+        $(document).ready(function() {
+            $("#division").on('change', function() {
+                var id = $(this).val();
+                // window.alert(id);
+                $.ajax({
+                    url: "{{ url('/customers/get-district') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    cache: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        "id": id
+                    },
+
+                    success: function(res) {
+                        $('#district').html(res.html);
+                    }
+                });
             });
         });
-        });
-    
-        $(document).ready(function () {
-        $("#district").on('change', function () {
-            var id = $(this).val();
-            // window.alert(id);
-            $.ajax({
-            url: "{{ url('/customers/get-thana') }}",
-            type: "POST",
-            dataType: 'json',
-            cache: false,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                "id": id
-            },
-    
-            success: function (res) {
-                $('#thana').html(res.html);
-            }
+
+        $(document).ready(function() {
+            $("#district").on('change', function() {
+                var id = $(this).val();
+                // window.alert(id);
+                $.ajax({
+                    url: "{{ url('/customers/get-thana') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    cache: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        "id": id
+                    },
+
+                    success: function(res) {
+                        $('#thana').html(res.html);
+                    }
+                });
             });
-        });
         });
     </script>
 @endsection

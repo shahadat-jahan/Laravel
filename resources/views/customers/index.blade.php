@@ -8,6 +8,11 @@
         @endif
         <div class="container-fluid text-center">
             <h2>Customers</h2>
+            @if (session()->has('success'))
+                <div class="alert alert-success">
+                    {{ session()->get('success') }}
+                </div>
+            @endif
             <div class="row">
                 <form class="d-flex col-4" name="search" method="POST" action="{{ route('customers.search', $keyword) }}">
                     @csrf

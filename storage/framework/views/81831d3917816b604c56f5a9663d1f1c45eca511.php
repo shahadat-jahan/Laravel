@@ -3,7 +3,6 @@
     <div class="container-fluid content">
         <div class="container-fluid text-center">
             <h2><?php echo app('translator')->get('label.ORDER_REPORT'); ?></h2>
-            
             <?php echo Form::open(['route' => ['orders.showReport'], 'method' => 'POST', 'class' => 'form my-3']); ?>
 
             <?php echo Form::token(); ?>

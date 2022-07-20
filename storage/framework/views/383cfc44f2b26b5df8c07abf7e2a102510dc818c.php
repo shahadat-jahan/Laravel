@@ -8,6 +8,12 @@
         <?php endif; ?>
         <div class="container-fluid text-center">
             <h2>Customers</h2>
+            <?php if(session()->has('success')): ?>
+                <div class="alert alert-success">
+                    <?php echo e(session()->get('success')); ?>
+
+                </div>
+            <?php endif; ?>
             <div class="row">
                 <form class="d-flex col-4" name="search" method="POST" action="<?php echo e(route('customers.search', $keyword)); ?>">
                     <?php echo csrf_field(); ?>
