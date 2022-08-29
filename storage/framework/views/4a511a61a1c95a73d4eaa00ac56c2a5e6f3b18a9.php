@@ -44,11 +44,11 @@
         <table border=1px; cellpadding=0; cellspacing=0;>
             <thead>
                 <tr>
-                    <th><?php echo e(__('label.ORDER_NO')); ?></th>
-                    <th><?php echo e(__('label.DATE')); ?></th>
-                    <th><?php echo e(__('label.CUSTOMER')); ?></th>
-                    <th><?php echo e(__('label.PRODUCT')); ?></th>
-                    <th><?php echo e(__('label.QTY')); ?></th>
+                    <th><?php echo app('translator')->get('label.ORDER_NO'); ?></th>
+                    <th><?php echo app('translator')->get('label.DATE'); ?></th>
+                    <th><?php echo app('translator')->get('label.CUSTOMER'); ?></th>
+                    <th><?php echo app('translator')->get('label.PRODUCT'); ?></th>
+                    <th><?php echo app('translator')->get('label.QTY'); ?></th>
                 </tr>
             </thead>
             <tbody>

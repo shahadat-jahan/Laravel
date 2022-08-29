@@ -20,7 +20,10 @@
                 </div>
                 {{-- get customer --}}
                 <div class="col-2">
-                    {!! Form::select('customer_id', $customers, Request::get('customer_id'), ['class' => 'form-select', 'placeholder' => __('label.SELECT_CUSTOMER')]) !!}
+                    {!! Form::select('customer_id', $customers, Request::get('customer_id'), [
+                        'class' => 'form-select',
+                        'placeholder' => __('label.SELECT_CUSTOMER'),
+                    ]) !!}
                 </div>
                 <div class="col-4 d-flex justify-content-end">
                     {!! Form::submit(__('label.REPORT'), ['class' => 'btn btn-outline-success ml-1', 'name' => 'search']) !!}
@@ -31,7 +34,8 @@
                         <a href="{{ URL::full() . '&export=exel' }}" class="btn btn-outline-success  ml-1" type="button">
                             @lang('label.Exel')
                         </a>
-                        <a href="{{ URL::full() . '&view=print' }}" id="print" class="btn btn-outline-success  ml-1" type="button">
+                        <a href="{{ URL::full() . '&view=print' }}" id="print" class="btn btn-outline-success  ml-1"
+                            type="button">
                             @lang('label.PRINT')
                         </a>
                     @endif
@@ -44,7 +48,7 @@
                 <div class="col-2 offset-1">
                     <span class="text-danger">{{ $errors->first('to_date') }}</span>
                 </div>
-           </div>
+            </div>
             {!! Form::close() !!}
             @if (Request::get('generate') == 'true')
                 <div class="table-responsive ">

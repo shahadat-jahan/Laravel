@@ -24,7 +24,10 @@
                 </div>
                 
                 <div class="col-2">
-                    <?php echo Form::select('customer_id', $customers, Request::get('customer_id'), ['class' => 'form-select', 'placeholder' => __('label.SELECT_CUSTOMER')]); ?>
+                    <?php echo Form::select('customer_id', $customers, Request::get('customer_id'), [
+                        'class' => 'form-select',
+                        'placeholder' => __('label.SELECT_CUSTOMER'),
+                    ]); ?>
 
                 </div>
                 <div class="col-4 d-flex justify-content-end">
@@ -37,7 +40,8 @@
                         <a href="<?php echo e(URL::full() . '&export=exel'); ?>" class="btn btn-outline-success  ml-1" type="button">
                             <?php echo app('translator')->get('label.Exel'); ?>
                         </a>
-                        <a href="<?php echo e(URL::full() . '&view=print'); ?>" id="print" class="btn btn-outline-success  ml-1" type="button">
+                        <a href="<?php echo e(URL::full() . '&view=print'); ?>" id="print" class="btn btn-outline-success  ml-1"
+                            type="button">
                             <?php echo app('translator')->get('label.PRINT'); ?>
                         </a>
                     <?php endif; ?>
@@ -45,12 +49,12 @@
             </div>
             <div class="row">
                 <div class="col-2 offset-1">
-                    <span><?php echo e($errors->first('from_date')); ?></span>
+                    <span class="text-danger"><?php echo e($errors->first('from_date')); ?></span>
                 </div>
                 <div class="col-2 offset-1">
-                    <span><?php echo e($errors->first('to_date')); ?></span>
+                    <span class="text-danger"><?php echo e($errors->first('to_date')); ?></span>
                 </div>
-           </div>
+            </div>
             <?php echo Form::close(); ?>
 
             <?php if(Request::get('generate') == 'true'): ?>
